@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Park Detectives | Unit 2 Awesome Animals | Lesson 2 Part 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9f5e1;--g:#2f6b3a;--g2:#4f9a5a;--or:#e8742a;--sun:#ffc93c;--ink:#1d2b24;--ok:#2e9e5b;--bad:#d9382c;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;font-family:Nunito,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-weight:600;padding-bottom:40px}
+h1,h2,h3{font-family:'Baloo 2',system-ui,sans-serif;margin:0}
+header{background:var(--g);color:#fff;padding:14px 16px 10px;border-bottom:6px solid var(--sun)}
+header h1{font-size:clamp(22px,5vw,34px);font-weight:800;line-height:1.1}
+header small{opacity:.85}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.pill{background:#ffffff26;border-radius:99px;padding:5px 12px;font-weight:800}
+select,input,textarea{font:inherit;border:2px solid var(--g);border-radius:10px;padding:5px 8px;background:#fff;color:var(--ink)}
+.tabs button{background:transparent;color:#fff;border:2px solid #fff8;border-radius:99px;padding:5px 14px;font:800 15px Nunito;cursor:pointer}
+.tabs button.on{background:var(--sun);color:var(--ink);border-color:var(--sun)}
+main{max-width:900px;margin:0 auto;padding:14px}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.st{background:#fff;border:3px solid var(--g);border-radius:16px;padding:10px;text-align:left;cursor:pointer;font:inherit;color:inherit;position:relative}
+.st:hover,.st:focus-visible{background:#f0faea;outline:3px solid var(--sun)}
+.st .em{font-size:30px}.st b{display:block;font-family:'Baloo 2';font-size:18px;line-height:1.1}.st span{font-size:13px;opacity:.8}
+.st.done{border-color:var(--ok);background:#e3f6e9}.st.done::after{content:"✔";position:absolute;right:10px;top:6px;color:var(--ok);font-size:22px}
+.st.cur{box-shadow:0 0 0 4px var(--sun)}
+.prog{height:12px;background:#0002;border-radius:9px;margin:12px 0;overflow:hidden}.prog i{display:block;height:100%;background:var(--or);width:0;transition:width .4s}
+#stage{background:#fff;border:3px solid var(--g);border-radius:20px;padding:16px;min-height:180px}
+#stage h2{color:var(--g);font-size:26px}
+.tag{display:inline-block;background:var(--sun);border-radius:8px;padding:2px 10px;font-size:13px;font-weight:800;margin-bottom:6px}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.cd{aspect-ratio:1;border:3px solid var(--g);border-radius:14px;background:var(--g2);color:#fff;font:800 26px 'Baloo 2';cursor:pointer;display:flex;align-items:center;justify-content:center;padding:2px;text-align:center}
+.cd svg{width:90%;height:90%}.cd.up{background:#fff8e6;color:var(--ink);font-size:16px}.cd.ok{background:#e3f6e9;border-color:var(--ok)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:10px;background:#fff1cf;border-radius:14px;min-height:50px;margin:8px 0}
+.chip{background:var(--or);color:#fff;border-radius:99px;padding:6px 16px;font:800 17px 'Baloo 2';cursor:grab;user-select:none}
+.chip.sel{outline:4px solid var(--g);transform:scale(1.08)}
+.row{background:#f4faf0;border:2px solid var(--g2);border-radius:12px;padding:8px 10px;margin:8px 0;font-size:18px;line-height:2}
+.slot{display:inline-block;min-width:110px;min-height:34px;border:3px dashed var(--g2);border-radius:10px;text-align:center;vertical-align:middle;font:800 17px 'Baloo 2';line-height:28px;background:#fff;padding:0 6px}
+.slot.ok{border:3px solid var(--ok);background:#e3f6e9;color:var(--ok)}
+.no{animation:sh .4s;border-color:var(--bad)!important}@keyframes sh{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:12px 0}
+.opt,.btn{border:3px solid var(--g);background:#fff;border-radius:14px;padding:10px;font:800 17px Nunito;cursor:pointer;color:var(--ink)}
+.opt:hover:not(:disabled){background:#f0faea}.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.opt.bad{background:#fdeceb;border-color:var(--bad)}
+.btn{background:var(--or);color:#fff;border-color:var(--or)}
+.msg{margin-top:12px;padding:10px 14px;border-radius:12px;background:#e3f6e9;border:2px solid var(--ok);font-weight:800}
+.ev{background:#fff8e6;border-left:6px solid var(--sun);padding:8px 12px;margin:8px 0;border-radius:8px}
+.cert{text-align:center;border:6px double var(--or);background:#fff;border-radius:20px;padding:20px;margin:14px 0}.cert h2{font-size:30px;color:var(--or)}
+.boom{position:fixed;font-size:28px;pointer-events:none;animation:up 1.2s forwards;z-index:9}@keyframes up{to{transform:translateY(-220px) rotate(40deg);opacity:0}}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:15px}td,th{border:2px solid var(--g2);padding:6px 8px;text-align:left;vertical-align:top}th{background:var(--g);color:#fff}
+.plan h3{color:var(--or);margin:16px 0 4px;font-size:22px}.plan ul{margin:4px 0;padding-left:20px}
+footer{text-align:center;margin-top:20px;font-weight:800;color:var(--g)}.hide{display:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<header>
+<h1>🦔 Park Detectives</h1>
+<small>Unit 2 · Awesome animals · Lesson 2 part 2 · Team Talk · Grade 7 (Oman)</small>
+<div class="bar">
+<span class="pill">⭐ Score: <b id="sc">0</b></span>
+<label class="pill">Level <select id="lvl" aria-label="Choose your level"><option value="support">Support 🌱</option><option value="standard" selected>Standard 🌿</option><option value="challenge">Challenge 🌳</option></select></label>
+<span class="tabs"><button id="tG" class="on">Game</button> <button id="tT">Teacher plan</button></span>
+</div></header>
+<main>
+<section id="game">
+<p><b>Emily, Bayan and Nawal found a strange animal in the park. Help them solve the case!</b> Play the missions in any order.</p>
+<div class="map" id="map"></div><div class="prog"><i id="pb"></i></div>
+<div id="stage"><h2>Ready, detective?</h2><p>Pick a mission above. 🔊 Tap sentences or words to hear them.</p></div>
+<div id="cert"></div>
+</section>
+
+<section id="plan" class="plan hide">
+<h2>Teacher plan · 25 minutes</h2>
+<p><b>Class:</b> Grade 7 · <b>Unit 2:</b> Awesome animals · <b>Lesson 2, part 2</b> (Activity Book, Team Talk)<br>
+<b>Lesson aim:</b> to read and understand a dialogue about animals.<br>
+<b>Target language:</b> Watch out! Wow! It’s so cute!<br>
+<b>Materials:</b> Unit 2 poster, Class Book page 43 dialogue (Emily, Bayan, Nawal and the hedgehog), Activity Book page 94–95, device or projector.</p>
+<table>
+<tr><th>Time</th><th>Stage</th><th>What happens</th><th>Teacher’s Book link</th></tr>
+<tr><td>0–4</td><td><b>Warm-up</b><br>Mission 1: Memory Match</td><td>Students flip cards to match animal body parts with words, as in the poster Memory game.</td><td>“Starting the lesson”: play the Memory game with the Unit 2 poster.</td></tr>
+<tr><td>4–10</td><td><b>Formative 1</b><br>Mission 2: Listen and Complete</td><td>Drag the missing words into six sentences from the dialogue and say who says each one. Play audio 2.4 to check.</td><td>Activity 1 (2.4): listen and complete the sentences. Who says them? Write. Then listen and check.</td></tr>
+<tr><td>10–15</td><td><b>Formative 2</b><br>Mission 3: True or False?</td><td>Decide T or F and find evidence in the dialogue. Check as a class.</td><td>Activity 2: read the dialogue again and circle T or F. Explain your answers.</td></tr>
+<tr><td>15–20</td><td><b>Formative 3</b><br>Mission 4: Say It Right</td><td>Drag expressions into six short dialogues. Pairs practise reading them aloud.</td><td>Activity 3 (2.5): read and complete the dialogues with the correct expressions.</td></tr>
+<tr><td>20–25</td><td><b>Closing</b><br>Mission 5: Fact or Fib?</td><td>Find the false sentence in two sets of animal facts. Challenge: write a dialogue. Exit ticket.</td><td>Activity 4 and “Finishing the lesson”: Three facts and a fib. Summative questions.</td></tr>
+</table>
+<h3>Differentiation</h3>
+<ul>
+<li><b>Support 🌱:</b> first-letter hints, the evidence line shown after each True/False, only two answer choices in Fact or Fib.</li>
+<li><b>Standard 🌿:</b> full activities.</li>
+<li><b>Challenge 🌳:</b> students must pick the evidence line before scoring, and write their own dialogue with <i>Watch out! / Wow! / It’s so cute!</i></li>
+</ul>
+<h3>Answer keys</h3>
+<ul>
+<li><b>2.4:</b> 1 Emily: different · 2 Nawal: something · 3 Bayan: claws · 4 Nawal: wings · 5 Nawal: spines · 6 Emily: scared.</li>
+<li><b>2.5:</b> 1 Wow! It’s so big! · 2 It’s so cute! · 3 Watch out! · 4 Watch out! · 5 Wow! · 6 It’s so cute!</li>
+<li>Deaf/hard of hearing students: all tasks are visual and text-based; audio is optional.</li>
+</ul>
+</section>
+<footer>Created by T.Badria Alfalahi</footer>
+</main>
+<script>
+const $=s=>document.querySelector(s),sh=a=>[...a].sort(()=>Math.random()-.5),lvl=()=>$('#lvl').value;
+const S={score:0,done:{},cur:-1};
+const I={
+whiskers:'<circle cx="30" cy="32" r="16" fill="#f4b36b"/><circle cx="24" cy="28" r="2.5"/><circle cx="36" cy="28" r="2.5"/><path d="M27 35h6l-3 3z" fill="#e0607e"/><path d="M2 32l20 3M2 40l20-2M58 32l-20 3M58 40l-20-2" stroke="#222" stroke-width="1.5" fill="none"/>',
+spines:'<path d="M6 48L8 30L15 40L18 20L25 38L30 14L36 38L42 20L45 40L52 30L54 48Z" fill="#6b4a2b"/><ellipse cx="30" cy="48" rx="24" ry="6" fill="#e9c9a0"/>',
+claws:'<g fill="#eee" stroke="#555" stroke-width="2"><path d="M8 54Q8 24 24 6Q20 30 22 54Z"/><path d="M24 54Q26 24 40 6Q36 30 38 54Z"/><path d="M40 54Q44 26 56 12Q50 32 52 54Z"/></g>',
+scales:'<g fill="#4fb3b0" stroke="#0e5a5c" stroke-width="2"><circle cx="16" cy="18" r="10"/><circle cx="36" cy="18" r="10"/><circle cx="26" cy="32" r="10"/><circle cx="46" cy="32" r="10"/><circle cx="16" cy="46" r="10"/><circle cx="36" cy="46" r="10"/></g>',
+beak:'<circle cx="22" cy="32" r="18" fill="#f7e7a1"/><path d="M38 26L58 33L38 40Z" fill="#f08a1c"/><circle cx="25" cy="26" r="3"/>',
+hump:'<path d="M3 50Q6 34 20 36Q28 6 38 36Q54 34 57 50Z" fill="#d9a05b"/>'};
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
+function boom(){for(let i=0;i<14;i++){const b=document.createElement('span');b.className='boom';b.textContent=['⭐','🎉','🦔','🔍'][i%4];b.style.left=10+Math.random()*80+'vw';b.style.top=60+Math.random()*30+'vh';document.body.appendChild(b);setTimeout(()=>b.remove(),1300)}}
+function pts(n){S.score+=n;$('#sc').textContent=S.score}
+const ST=[{e:'🃏',t:'Memory Match',m:4,k:'Warm-up'},{e:'🎧',t:'Listen and Complete',m:6,k:'Drag and drop'},{e:'🔎',t:'True or False?',m:5,k:'Evidence hunt'},{e:'💬',t:'Say It Right',m:5,k:'Drag the expression'},{e:'🕵️',t:'Fact or Fib?',m:5,k:'Closing'}];
+function drawMap(){
+$('#map').innerHTML=ST.map((s,i)=>`<button class="st ${S.done[i]?'done':''} ${S.cur==i?'cur':''}" data-i="${i}"><span class="em">${s.e}</span><b>Mission ${i+1}: ${s.t}</b><span>${s.k} · about ${s.m} min</span></button>`).join('');
+document.querySelectorAll('.st').forEach(b=>b.onclick=()=>go(+b.dataset.i));
+const n=Object.keys(S.done).length;$('#pb').style.width=n*20+'%';
+if(n==5)$('#cert').innerHTML=`<div class="cert"><div style="font-size:50px">🏆🦔🔍</div><h2>Super Park Detective!</h2><p>You solved the case and used <i>Watch out! Wow! It’s so cute!</i><br><b>Final score: ${S.score}</b></p><small>Created by T.Badria Alfalahi</small></div>`}
+function finish(i,x=''){
+if(!S.done[i]){S.done[i]=1;pts(20);boom()}drawMap();
+const nx=ST.findIndex((_,j)=>!S.done[j]);
+$('#stage').insertAdjacentHTML('beforeend',`<div class="msg">🎉 Mission complete! +20 bonus. ${x}${nx>=0?`<br><button class="btn" id="nx" style="margin-top:8px">Next: ${ST[nx].t}</button>`:'<br>All missions done. Scroll down for your certificate!'}</div>`);
+if(nx>=0)$('#nx').onclick=()=>go(nx)}
+function go(i){S.cur=i;drawMap();[m0,m1,m2,m3,m4][i]();$('#stage').scrollIntoView({behavior:'smooth',block:'start'})}
+const head=i=>`<span class="tag">Mission ${i+1} · ${ST[i].k}</span><h2>${ST[i].t}</h2>`;
+const flash=(e,c='no')=>{e.classList.add(c);setTimeout(()=>e.classList.remove(c),450)};
+
+/* drag-or-tap helper: chips (reusable or not) onto .slot elements */
+function dnd(check){
+let sel=null;
+document.querySelectorAll('.chip').forEach(c=>{c.ondragstart=e=>e.dataTransfer.setData('text',c.dataset.w);c.onclick=()=>{document.querySelectorAll('.chip.sel').forEach(x=>x.classList.remove('sel'));sel=c;c.classList.add('sel')}});
+document.querySelectorAll('.slot').forEach(s=>{s.ondragover=e=>e.preventDefault();s.ondrop=e=>{e.preventDefault();check(s,e.dataTransfer.getData('text'))};s.onclick=()=>{if(sel)check(s,sel.dataset.w);if(s.classList.contains('ok'))say(s.textContent)}})}
+
+function m0(){
+const P=['whiskers','spines','claws','scales','beak','hump'];let first=null,lock=false,left=P.length;
+const cards=sh(P.flatMap(p=>[{p,t:'pic'},{p,t:'word'}]));
+$('#stage').innerHTML=head(0)+`<p>Flip two cards. Match each picture with its word. Which animal is in the park? Look for <b>spines</b>!</p><div class="mem">${cards.map((c,i)=>`<button class="cd" data-i="${i}" aria-label="card">?</button>`).join('')}</div>`;
+document.querySelectorAll('.cd').forEach(b=>b.onclick=()=>{
+const c=cards[b.dataset.i];if(lock||b.classList.contains('up')||b.classList.contains('ok'))return;
+b.classList.add('up');b.innerHTML=c.t=='pic'?`<svg viewBox="0 0 60 60">${I[c.p]}</svg>`:c.p;if(c.t=='word')say(c.p);
+if(!first){first=[b,c];return}
+if(first[1].p==c.p&&first[1].t!=c.t){[b,first[0]].forEach(x=>{x.classList.add('ok');x.classList.remove('up')});pts(10);first=null;if(--left==0)finish(0,'Say each word aloud with a partner.')}
+else{lock=true;const f=first[0];first=null;setTimeout(()=>{[b,f].forEach(x=>{x.classList.remove('up');x.textContent='?'});lock=false},900)}})}
+
+function m1(){
+const D=[['There are lots of','different','animals here.','Emily'],['Hey! There’s','something','over there!','Nawal'],['It might be a bear with long','claws','!','Bayan'],['It can’t be a bird. It doesn’t have','wings','.','Nawal'],['It doesn’t have scales. Oh! It has','spines','!','Nawal'],['No, you shouldn’t touch it. It may be','scared','.','Emily']];
+const L=lvl(),ok={};
+$('#stage').innerHTML=head(1)+`<p>Drag a word into each gap (or tap a word, then tap a gap). Then choose who says it.</p><div class="chips">${sh(D).map(d=>`<span class="chip" draggable="true" data-w="${d[1]}">${d[1]}</span>`).join('')}</div>${D.map((d,i)=>`<div class="row" data-i="${i}">${i+1}. ${d[0]} <span class="slot" data-i="${i}">${L=='support'?d[1][0]+' …':''}</span> ${d[2]}<br><select data-i="${i}" aria-label="Who says it?"><option value="">Who says it?</option><option>Emily</option><option>Nawal</option><option>Bayan</option></select></div>`).join('')}<button class="btn" id="ck">Check speakers</button>`;
+dnd((s,w)=>{const i=+s.dataset.i;if(s.classList.contains('ok'))return;
+if(D[i][1]==w){s.classList.add('ok');s.textContent=w;ok[i]=1;pts(5);say(D[i][0]+' '+w+' '+D[i][2])}else flash(s)});
+$('#ck').onclick=()=>{let n=0;document.querySelectorAll('.row select').forEach(x=>{const i=+x.dataset.i,g=x.value==D[i][3];x.style.borderColor=g?'var(--ok)':'var(--bad)';if(g)n++});
+const w=Object.keys(ok).length;
+if(n==6&&w==6){pts(10);$('#ck').remove();finish(1,'Now listen to audio 2.4 and check.')}else $('#ck').insertAdjacentHTML('afterend',`<p>${w}/6 gaps · ${n}/6 speakers correct. Keep going!</p>`)}}
+
+function m2(){
+const T=[['Emily likes the park and says there might be some frogs.',1,'I love this place. There might be some frogs, snails and bees…'],['Bayan says the animal might be a bear with long claws.',1,'It might be a bear with long claws!'],['Nawal says the animal is a bird.',0,'It can’t be a bird. It doesn’t have wings.'],['The animal has spines.',1,'It doesn’t have scales. Oh! It has spines!'],['The animal has scales.',0,'It doesn’t have scales. Oh! It has spines!'],['Emily says they should touch the animal.',0,'No, you shouldn’t touch it. It may be scared.']];
+const other=['I haven’t seen any animals yet.','It might have fur. I can’t see it very well.','Watch out! It might be a bear with long claws!'];
+let q=0;const L=lvl();
+const show=()=>{
+if(q==T.length){$('#stage').innerHTML=head(2)+'<p>Case closed! You found all the evidence.</p>';return finish(2)}
+const [s,a,ev]=T[q];
+$('#stage').innerHTML=head(2)+`<p>Sentence ${q+1} of ${T.length}. Read the dialogue in your head and decide.</p><h3 style="font-size:23px">“${s}”</h3><div class="opts"><button class="opt" data-v="1">✅ True</button><button class="opt" data-v="0">❌ False</button></div><div id="ex"></div>`;
+document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+if(+b.dataset.v!=a){flash(b);return}
+document.querySelectorAll('.opt').forEach(x=>x.disabled=true);b.classList.add('ok');
+if(L=='challenge'){const o=sh([ev,...other.slice(0,2)]);$('#ex').innerHTML=`<p><b>Find the evidence:</b></p><div class="opts" style="grid-template-columns:1fr">${o.map(x=>`<button class="opt ev2">${x}</button>`).join('')}</div>`;
+document.querySelectorAll('.ev2').forEach(e=>e.onclick=()=>{if(e.textContent==ev){e.classList.add('ok');pts(15);say(ev);q++;setTimeout(show,1100)}else flash(e)})}
+else{pts(10);if(L=='support'||L=='standard')$('#ex').innerHTML=`<div class="ev">Evidence: “${ev}”</div>`;say(ev);q++;setTimeout(show,L=='support'?2500:1800)}})};
+show()}
+
+function m3(){
+const D=[['Boy 1: Look at the elephant!','Boy 2: ___ It’s so big!'],['Girl 1: Look what we got last weekend!','Girl 2: A hamster! ___'],['Girl 1: Are you cooking something?','Girl 2: Yes. ___ It’s very hot!'],['Boy 1: Let’s cross the road.','Boy 2: ___ There’s a car!'],['Boy 1: What’s that animal in the water?','Boy 2: ___ It’s a dolphin! I love dolphins!'],['Girl 1: This is my pet hamster.','Girl 2: ___ I want one, too!']];
+const A=[['Wow!','Watch out!','It’s so cute!'],0];
+const key=['Wow!','It’s so cute!','Watch out!','Watch out!','Wow!','It’s so cute!'];
+const hint=i=>lvl()=='support'?['surprise','a baby animal','danger','danger','surprise','a baby animal'][i]:'';
+let left=6;
+$('#stage').innerHTML=head(3)+`<p>Drag an expression into each dialogue. You can use each one more than once. Tap a finished dialogue to hear it.</p><div class="chips">${A[0].map(w=>`<span class="chip" draggable="true" data-w="${w}">${w}</span>`).join('')}</div>${D.map((d,i)=>`<div class="row">${i+1}. ${d[0]}<br>${d[1].replace('___',`<span class="slot" data-i="${i}">${hint(i)}</span>`)}</div>`).join('')}`;
+dnd((s,w)=>{const i=+s.dataset.i;if(s.classList.contains('ok'))return;
+if(key[i]==w){s.classList.add('ok');s.textContent=w;pts(10);say(w);if(--left==0)finish(3,'Work in pairs: read the dialogues aloud, then write a new one.')}else flash(s)})}
+
+function m4(){
+const R=[[['A hedgehog has spines.','A fish has scales.','A camel has flippers.','A cat has whiskers.'],2],[['A duck has a beak.','A penguin has flippers.','A butterfly has antennae.','A dolphin has horns.'],3]];
+let r=0;const L=lvl();
+const show=()=>{
+if(r==R.length){$('#stage').innerHTML=head(4)+`<p>Great! One last task.</p>${L=='challenge'?'<p><b>🌳 Challenge:</b> write a dialogue with <i>Watch out!</i>, <i>Wow!</i> and <i>It’s so cute!</i><br><textarea rows="3" style="width:100%" placeholder="Girl 1: Look at … Girl 2: Wow! …"></textarea></p>':''}<p><b>Exit ticket:</b> “I can understand a dialogue about animals.”</p><div class="opts"><button class="opt" id="e1">😟 Not yet</button><button class="opt" id="e2">🙂 Nearly</button><button class="opt" id="e3">😎 Yes!</button></div>`;
+['e1','e2','e3'].forEach(id=>$('#'+id).onclick=()=>{if(!S.done[4]){$('#'+id).classList.add('ok');finish(4,'Thank you, detective!')}});return}
+const [s,f]=R[r];let idx=s.map((t,i)=>i);if(L=='support')idx=[f,...idx.filter(i=>i!=f).slice(0,1)];
+$('#stage').innerHTML=head(4)+`<p>Round ${r+1} of ${R.length}. Three are facts. One is a <b>fib</b> (not true). Tap the fib!</p><div class="opts" style="grid-template-columns:1fr">${sh(idx).map(i=>`<button class="opt" data-i="${i}">${s[i]}</button>`).join('')}</div>`;
+document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(+b.dataset.i==f){b.classList.add('ok');pts(15);say(b.textContent);r++;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);setTimeout(show,1000)}else flash(b)})};
+show()}
+
+$('#lvl').onchange=()=>{if(S.cur>=0&&!S.done[S.cur])go(S.cur)};
+$('#tG').onclick=()=>{$('#game').classList.remove('hide');$('#plan').classList.add('hide');$('#tG').classList.add('on');$('#tT').classList.remove('on')};
+$('#tT').onclick=()=>{$('#plan').classList.remove('hide');$('#game').classList.add('hide');$('#tT').classList.add('on');$('#tG').classList.remove('on')};
+drawMap();
+</script></body></html>
